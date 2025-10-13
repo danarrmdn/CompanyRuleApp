@@ -393,7 +393,10 @@ class CompanyRuleController extends Controller
 
         $canDownloadAndPrint = $isCreator || $isSameDepartment || $isController || $isApprover;
 
-        $backUrl = url()->previous();
+        $backUrl = route('company-rules.index', ['view' => request()->query('view'), 'open_category' => request()->query('open_category')]);
+        if (url()->previous() === route('approvals.index')) {
+            $backUrl = route('approvals.index');
+        }
 
         return view('company-rules.show', compact('rule', 'canDownloadAndPrint', 'backUrl'));
     }

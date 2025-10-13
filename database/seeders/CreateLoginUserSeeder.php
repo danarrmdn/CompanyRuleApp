@@ -11,14 +11,14 @@ class CreateLoginUserSeeder extends Seeder
     public function run(): void
     {
         User::firstOrCreate(
-            ['email' => 'test2@nsi.co.id'],
+            ['email' => 'krisnabudiutomo5@gmail.com'],
             [
-                'name' => 'Test2',
-                'emp_id' => '9999',
-                'password' => Hash::make('test2'),
-                'grade' => 7,
-                'department' => 'IT',
-                'department_id' => 1,
+                'name' => 'Ramdani',
+                'emp_id' => '9997',
+                'password' => Hash::make('password123'),
+                'grade' => 8,
+                'department' => 'Information Technology',
+                'department_id' => 106,
             ]
         );
     }

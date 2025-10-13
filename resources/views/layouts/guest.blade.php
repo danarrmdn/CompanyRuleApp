@@ -17,7 +17,7 @@
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
             <div>
                 <a href="/">
-                    <img src="{{ asset('images/name-logo-below-nobg.png') }}" alt="NSI Logo" class="w-24 h-24">
+                    <img src="{{ asset('images/side-name-logo-nobg.png') }}" alt="NSI Logo" class="w-34 h-24">
                 </a>
             </div>
 

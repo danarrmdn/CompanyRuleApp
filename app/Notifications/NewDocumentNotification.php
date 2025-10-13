@@ -41,7 +41,7 @@ class NewDocumentNotification extends Notification
     {
         return [
             'rule_id' => $this->rule->id,
-            'message' => 'Dokumen baru telah dibuat: ' . $this->rule->document_name,
+            'message' => 'A new document has been created: ' . $this->rule->document_name,
             'action_url' => route('company-rules.show', $this->rule->id),
         ];
     }

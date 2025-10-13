@@ -5,7 +5,7 @@
                 {{ __('Approval Document') }}
             </h2>
             <div>
-                <button onclick="window.history.back()" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50">
+                <a href="{{ route('company-rules.index') }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50">
                     Back
                 </button>
             </div>

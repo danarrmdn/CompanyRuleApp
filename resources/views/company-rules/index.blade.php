@@ -13,10 +13,10 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="flex justify-end space-x-2 mb-4">
-                <a href="{{ route('company-rules.create') }}" class="inline-flex items-center px-4 py-2 bg-blue-500 border border-transparent rounded-md font-semibold text-xs text-white tracking-widest hover:bg-blue-600 active:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                <a href="{{ route('company-rules.create') }}" class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white tracking-widest hover:bg-green-500 active:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition ease-in-out duration-150">
                     + CREATE
                 </a>
-                <a href="{{ route('company-rules.create-revision') }}" class="inline-flex items-center px-4 py-2 bg-yellow-400 border border-transparent rounded-md font-semibold text-xs text-gray-800 tracking-widest hover:bg-yellow-500 active:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                <a href="{{ route('company-rules.create-revision') }}" class="inline-flex items-center px-4 py-2 bg-yellow-400 border border-transparent rounded-md font-semibold text-xs text-white tracking-widest hover:bg-yellow-500 active:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 transition ease-in-out duration-150">
                     + REVISE
                 </a>
             </div>
@@ -109,7 +109,7 @@
                                                             @foreach ($data['latestDocuments'][$category] as $rule)
                                                                 <tr class="hover:bg-gray-50">
                                                                     <td class="p-3">{{ $rule->number }}</td>
-                                                                    <td class="p-3"><a href="{{ route('company-rules.show', $rule) }}" class="text-indigo-600 hover:underline">{{ $rule->document_name }}</a></td>
+                                                                    <td class="p-3"><a href="{{ route('company-rules.show', ['rule' => $rule, 'view' => $view, 'open_category' => $category]) }}" class="text-indigo-600 hover:underline">{{ $rule->document_name }}</a></td>
                                                                     <td class="p-3">{{ $rule->creator->department ?? 'N/A' }}</td>
                                                                     <td class="p-3">{{ $rule->version }}</td>
                                                                     <td class="p-3">{{ $rule->effective_date ? date('d M Y', strtotime($rule->effective_date)) : 'N/A' }}</td>
@@ -163,7 +163,7 @@
                                             @forelse ($data['obsoleteDocuments'] as $rule)
                                                 <tr class="hover:bg-gray-50">
                                                     <td class="p-3">{{ $rule->number }}</td>
-                                                    <td class="p-3"><a href="{{ route('company-rules.show', $rule) }}" class="text-indigo-600 hover:underline">{{ $rule->document_name }}</a></td>
+                                                    <td class="p-3"><a href="{{ route('company-rules.show', ['rule' => $rule, 'view' => $view]) }}" class="text-indigo-600 hover:underline">{{ $rule->document_name }}</a></td>
                                                     <td class="p-3">{{ $rule->creator->department ?? 'N/A' }}</td>
                                                     <td class="p-3">{{ $rule->version }}</td>
                                                     <td class="p-3">{{ $rule->effective_date ? date('d M Y', strtotime($rule->effective_date)) : 'N/A' }}</td>
@@ -222,7 +222,7 @@
                                             @forelse ($data['allDocuments'] as $rule)
                                                 <tr class="hover:bg-gray-50">
                                                     <td class="p-3">{{ $rule->number }}</td>
-                                                    <td class="p-3"><a href="{{ route('company-rules.show', $rule) }}" class="text-indigo-600 hover:underline">{{ $rule->document_name }}</a></td>
+                                                    <td class="p-3"><a href="{{ route('company-rules.show', ['rule' => $rule, 'view' => $view]) }}" class="text-indigo-600 hover:underline">{{ $rule->document_name }}</a></td>
                                                     <td class="p-3">{{ $rule->creator->department ?? 'N/A' }}</td>
                                                     <td class="p-3">{{ $rule->version }}</td>
                                                     <td class="p-3">{{ $rule->effective_date ? date('d M Y', strtotime($rule->effective_date)) : 'N/A' }}</td>
