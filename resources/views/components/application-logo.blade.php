@@ -1,0 +1,1 @@
+<img {{ $attributes }} src="{{ asset('images/LogoNSI.jpeg') }}" alt="Logo Perusahaan">
