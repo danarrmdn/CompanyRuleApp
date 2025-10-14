@@ -308,6 +308,22 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
             transition: transform 0.3s ease;
         }
+
+        @media print {
+            .pdfjs-toolbar, .thumbnails {
+                display: none;
+            }
+            .pdfviewer, .pdfviewer-container, .maindoc {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                overflow: visible;
+            }
+            body {
+                overflow: visible;
+            }
+        }
     </style>
 </head>
 <body>

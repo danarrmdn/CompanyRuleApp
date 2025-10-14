@@ -13,7 +13,7 @@
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if($rule->status == 'Send Back')
-            <div class="bg-red-50 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4" role="alert">
+            <div class="bg-orange-50 border border-orange-400 text-orange-700 px-4 py-3 rounded relative mb-4" role="alert">
                 <strong class="font-bold">Document Requires Revision!</strong>
                 <p class="mt-2">{{ $rule->reason }}</p>
             </div>

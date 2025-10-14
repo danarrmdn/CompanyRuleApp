@@ -18,6 +18,12 @@ class CompanyRuleController extends Controller
     public function index(Request $request)
     {
         $view = $request->input('view', 'all'); // Default to 'all'
+        $status = $request->input('status');
+
+        if ($status === 'obsolete') {
+            $view = 'obsolete';
+        }
+
         $data = [];
 
         switch ($view) {
@@ -46,11 +52,13 @@ class CompanyRuleController extends Controller
             case 'all':
             default:
                 $query = CompanyRule::with(['creator', 'approver1', 'approver2', 'approver3']);
-                if ($status = $request->input('status')) {
+                if ($status) {
                     if ($status === 'approved') {
                         $query->where('status', 'Approved')->where('is_obsolete', false);
                     } elseif ($status === 'pending') {
                         $query->where('status', 'like', 'Pending%')->where('is_obsolete', false);
+                    } elseif ($status === 'send_back') {
+                        $query->where('status', 'Send Back')->where('is_obsolete', false);
                     } else {
                         $query->where('status', $status)->where('is_obsolete', false);
                     }

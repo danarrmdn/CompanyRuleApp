@@ -38,19 +38,34 @@ class DocumentStatusUpdated extends Notification implements ShouldQueue
 
     public function toMail(object $notifiable): MailMessage
     {
-        $companyRule = CompanyRule::find($this->companyRuleId);
+        $companyRule = CompanyRule::with(['approver1', 'approver2', 'approver3'])->find($this->companyRuleId);
         if (! $companyRule) {
             return (new MailMessage)->line('The referenced document could not be found.');
         }
 
-        return (new MailMessage)
+        $approvers = collect([$companyRule->approver1, $companyRule->approver2, $companyRule->approver3])
+            ->filter()
+            ->map(fn($user) => $user->name)
+            ->implode(', ');
+
+        $mailMessage = (new MailMessage)
             ->subject('Document Approval Request: '.$companyRule->document_name)
             ->greeting('Hello, '.$notifiable->name.'!')
             ->line($this->message)
             ->line('Document Name: '.$companyRule->document_name)
-            ->line('Created by: '.$companyRule->creator->name)
-            ->action('View Document', route('company-rules.show', $companyRule->id))
-            ->line('Thank you for your attention.');
+            ->line('Category: '.$companyRule->category)
+            ->line('Number: '.$companyRule->number)
+            ->line('Effective Date: ' . ($companyRule->effective_date ? \Carbon\Carbon::parse($companyRule->effective_date)->format('d F Y') : 'N/A'))
+            ->line('Names of Approvers: '.($approvers ?: 'N/A'));
+
+        if (in_array($companyRule->status, ['Send Back', 'Rejected']) && !empty($companyRule->reason)) {
+            $mailMessage->line('Reason: '.$companyRule->reason);
+        }
+
+        $mailMessage->action('View Document', route('company-rules.show', $companyRule->id))
+                    ->line('Thank you for your attention.');
+
+        return $mailMessage;
     }
 
     /**

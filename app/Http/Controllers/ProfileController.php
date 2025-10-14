@@ -44,6 +44,8 @@ class ProfileController extends Controller
             $user->avatar = $request->file('avatar')->store('avatars', 'public');
             \Illuminate\Support\Facades\Log::info($user->avatar);
         }
+        
+        $user->save();
 
         return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
