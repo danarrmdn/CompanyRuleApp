@@ -15,28 +15,6 @@
     <div class="py-12" x-data>
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
 
-            @if (session('status') === 'profile-updated')
-                <div
-                    x-data="{ show: true }"
-                    x-show="show"
-                    x-transition
-                    x-init="setTimeout(() => show = false, 2000)"
-                    class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50"
-                >
-                    <p>{{ __('Profile has been updated.') }}</p>
-                </div>
-            @elseif (session('status') === 'password-updated')
-                <div
-                    x-data="{ show: true }"
-                    x-show="show"
-                    x-transition
-                    x-init="setTimeout(() => show = false, 2000)"
-                    class="p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50"
-                >
-                    <p>{{ __('Password has been updated.') }}</p>
-                </div>
-            @endif
-
             <div class="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
                 <div class="max-w-xl">
                     <h2 class="text-lg font-medium text-gray-900">Profile Details</h2>

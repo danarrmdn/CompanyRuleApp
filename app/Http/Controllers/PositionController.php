@@ -11,11 +11,21 @@ use Illuminate\View\View;
 class PositionController extends Controller
 {
     // Menampilkan daftar semua jabatan.
-    public function index(): View
+    public function index(Request $request): View
     {
-        $positions = Position::with('holder')->orderBy('position_title')->get();
+        $search = $request->input('search');
 
-        return view('positions.index', compact('positions'));
+        $positions = Position::with('holder')
+            ->when($search, function ($query, $search) {
+                return $query->where('position_title', 'like', "%{$search}%")
+                    ->orWhereHas('holder', function ($query) use ($search) {
+                        $query->where('name', 'like', "%{$search}%");
+                    });
+            })
+            ->orderBy('position_title')
+            ->paginate(15);
+
+        return view('positions.index', compact('positions', 'search'));
     }
 
     // Menampilkan formulir untuk membuat jabatan baru.
@@ -51,11 +61,10 @@ class PositionController extends Controller
     public function update(Request $request, Position $position): RedirectResponse
     {
         $request->validate([
-            'position_title' => 'required|string|max:255|unique:positions,position_title,'.$position->id,
             'holder_id' => 'required|exists:users,id',
         ]);
 
-        $position->update($request->all());
+        $position->update($request->only('holder_id'));
 
         return redirect()->route('positions.index')->with('success', 'Position updated successfully.');
     }

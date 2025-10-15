@@ -4,6 +4,7 @@ use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\CompanyRuleController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -56,6 +57,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/internal-api/company-rules/{rule}', [CompanyRuleController::class, 'getRuleDataAsJson'])->name('internal-api.company-rules.show');
 
     Route::resource('positions', PositionController::class);
+    Route::resource('users', UserController::class);
+    Route::post('users/{user}/reset-password', [UserController::class, 'resetPassword'])->name('users.reset-password');
 
     Route::get('/approvals', [ApprovalController::class, 'index'])->name('approvals.index');
     Route::post('/approvals/{rule}/approve', [ApprovalController::class, 'approve'])->name('approvals.approve');

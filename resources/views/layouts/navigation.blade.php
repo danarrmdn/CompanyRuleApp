@@ -36,6 +36,37 @@
                             </span>
                         </x-nav-link>
                     @endif
+
+                    <!-- Manage Dropdown -->
+                    @if (Auth::user()->roles >= 2)
+                        <div class="hidden sm:flex sm:items-center sm:ms-4">
+                            <x-dropdown align="left" width="48">
+                                <x-slot name="trigger">
+                                    <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                        <div>Manage</div>
+
+                                        <div class="ms-1">
+                                            <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+                                                <path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                    </button>
+                                </x-slot>
+
+                                <x-slot name="content">
+                                    <!-- User Management Link -->
+                                    <x-dropdown-link :href="route('users.index')">
+                                        {{ __('User') }}
+                                    </x-dropdown-link>
+
+                                    <!-- Position Management Link -->
+                                    <x-dropdown-link :href="route('positions.index')">
+                                        {{ __('Position') }}
+                                    </x-dropdown-link>
+                                </x-slot>
+                            </x-dropdown>
+                        </div>
+                    @endif
                 </div>
             </div>
 
@@ -56,12 +87,12 @@
                         </x-slot>
 
                         <x-slot name="content">
-                            <div x-data="{ notificationsCleared: false }">
+                            <div>
                                 <div class="flex justify-between items-center px-4 py-2 bg-gray-50">
                                     <h3 class="text-sm font-semibold text-gray-700">Notifications</h3>
                                     <div class="flex space-x-4">
                                         @if($unreadNotificationsCount > 0)
-                                            <div x-show="!notificationsCleared">
+                                            <div>
                                                 <form method="POST" action="{{ route('notifications.markAllAsRead') }}">
                                                     @csrf
                                                     <button type="submit" class="text-xs text-indigo-600 hover:text-indigo-800 font-medium">
@@ -70,14 +101,9 @@
                                                 </form>
                                             </div>
                                         @endif
-                                        <div x-show="!notificationsCleared">
-                                            <button type="button" @click="notificationsCleared = true" class="text-xs text-red-600 hover:text-red-800 font-medium">
-                                                Clear All Notifications
-                                            </button>
-                                        </div>
                                     </div>
                                 </div>
-                                <div style="max-height: 400px; overflow-y: auto;" x-show="!notificationsCleared">
+                                <div style="max-height: 400px; overflow-y: auto;">
                                     @forelse ($notifications->take(5) as $notification)
                                         <a href="{{ route('notifications.read', $notification->id) }}" 
                                         class="block w-full px-4 py-3 text-start text-sm leading-5 text-gray-700 hover:bg-indigo-50 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out {{ $notification->read_at ? 'bg-gray-50' : 'bg-white' }}">
@@ -98,9 +124,6 @@
                                             No notifications.
                                         </div>
                                     @endforelse
-                                </div>
-                                <div x-show="notificationsCleared" class="p-3 text-sm text-gray-500 text-center">
-                                    Tidak ada notifikasi baru.
                                 </div>
                             </div>
                             <div class="border-t border-gray-200">

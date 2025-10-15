@@ -7,6 +7,9 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="https://printjs-4de6.kxcdn.com/print.min.js"></script>
+    <link rel="stylesheet" href="https://printjs-4de6.kxcdn.com/print.min.css">
+
     <script>
         var pdfjsLib = window['pdfjs-dist/build/pdf'];
         pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
@@ -308,22 +311,6 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1); 
             transition: transform 0.3s ease;
         }
-
-        @media print {
-            .pdfjs-toolbar, .thumbnails {
-                display: none;
-            }
-            .pdfviewer, .pdfviewer-container, .maindoc {
-                width: 100%;
-                height: 100%;
-                margin: 0;
-                padding: 0;
-                overflow: visible;
-            }
-            body {
-                overflow: visible;
-            }
-        }
     </style>
 </head>
 <body>
@@ -551,8 +538,10 @@
         }
         
         function printPDF() {
-            if (pdfViewer.pdf) {
-                window.print();
+            const urlParams = new URLSearchParams(window.location.search);
+            const PDFFILE = urlParams.get('doc');
+            if (PDFFILE) {
+                printJS(PDFFILE);
             }
         }
         

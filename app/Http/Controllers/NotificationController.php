@@ -10,22 +10,12 @@ class NotificationController extends Controller
     public function index()
     {
         $user = auth()->user();
-        $allNotifications = $user->notifications;
-        $perPage = 15;
-        $currentPage = request()->get('page', 1);
-        $items = $allNotifications->forPage($currentPage, $perPage);
-        $paginator = new \Illuminate\Pagination\LengthAwarePaginator(
-            $items,
-            $allNotifications->count(),
-            $perPage,
-            $currentPage,
-            ['path' => request()->url()]
-        );
+        $notifications = $user->notifications;
 
         $unreadNotifications = $user->unreadNotifications;
 
         return view('notifications.index', [
-            'notifications' => $paginator,
+            'notifications' => $notifications,
             'unreadNotifications' => $unreadNotifications,
         ]);
     }

@@ -27,6 +27,8 @@ class User extends Authenticatable
         'section_id',
         'section',
         'avatar',
+        'password_change_at',
+        'roles',
     ];
 
     /**

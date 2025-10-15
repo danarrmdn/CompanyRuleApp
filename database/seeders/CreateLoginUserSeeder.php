@@ -10,15 +10,16 @@ class CreateLoginUserSeeder extends Seeder
 {
     public function run(): void
     {
-        User::firstOrCreate(
-            ['email' => 'test@gmail.com'],
+        User::updateOrCreate(
+            ['email' => 'schoolnarr@gmail.com'],
             [
-                'name' => 'test2',
+                'name' => 'Danarusmia',
                 'emp_id' => '9999',
-                'password' => Hash::make('test2'),
-                'grade' => 4,
-                'department' => 'IT',
-                'department_id' => 1,
+                'password' => Hash::make('password123'),
+                'grade' => 10,
+                'department' => 'Information Technology',
+                'department_id' => 106,
+                'roles' => 2,
             ]
         );
     }

@@ -28,26 +28,25 @@ class ProfileController extends Controller
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         $user = $request->user();
-
-        $validatedData = $request->validated();
-        $user->name = $validatedData['name'];
-        $user->email = $validatedData['email'];
-
-        if ($user->isDirty('email')) {
-            $user->email_verified_at = null;
-        }
+        $user->fill($request->validated());
 
         if ($request->hasFile('avatar')) {
+            // Delete old avatar if exists
             if ($user->avatar) {
                 Storage::disk('public')->delete($user->avatar);
             }
-            $user->avatar = $request->file('avatar')->store('avatars', 'public');
-            \Illuminate\Support\Facades\Log::info($user->avatar);
+            $avatarPath = $request->file('avatar')->store('avatars', 'public');
+            $user->avatar = $avatarPath;
         }
-        
-        $user->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        if ($request->user()->isDirty('email')) {
+            $request->user()->email_verified_at = null;
+        }
+
+        $user->save();
+        $request->user()->refresh();
+
+        return back()->with('success', 'Profile has been updated.');
     }
 
     /**
@@ -94,6 +93,6 @@ class ProfileController extends Controller
             $user->save();
         }
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return back()->with('success', 'Profile photo has been removed.');
     }
 }

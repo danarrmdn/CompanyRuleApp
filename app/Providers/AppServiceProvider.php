@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
                 $user = Auth::user();
                 $unreadNotifications = $user->unreadNotifications()->take(100)->get();
                 $unreadNotificationsCount = $user->unreadNotifications()->count();
-                $notifications = $user->notifications()->take(5)->get();
+                $notifications = $user->unreadNotifications()->take(5)->get();
 
                 $view->with('unreadNotifications', $unreadNotifications)
                     ->with('unreadNotificationsCount', $unreadNotificationsCount)

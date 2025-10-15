@@ -222,8 +222,9 @@ class CompanyRuleController extends Controller
         $newRule->save();
         $newRule->logActivity('Submitted Revision for Approval');
 
-        // Notify all users about the new document
-        $users = User::all();
+        // Notify users in the same department about the new document
+        $creator = $newRule->creator;
+        $users = User::where('department', $creator->department)->get();
         Notification::send($users, new NewDocumentNotification($newRule));
 
         if ($nextControllerId) {
@@ -349,8 +350,8 @@ class CompanyRuleController extends Controller
             $rule->save();
             $rule->logActivity('Submitted for Approval');
 
-            // Notify all users about the new document
-            $users = User::all();
+            // Notify users in the same department about the new document
+            $users = User::where('department', $creator->department)->get();
             Notification::send($users, new NewDocumentNotification($rule));
 
             if ($nextControllerId) {
