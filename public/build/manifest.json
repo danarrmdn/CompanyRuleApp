@@ -1,0 +1,22 @@
+{
+  "resources/css/app.css": {
+    "file": "assets/app-Bmv_qJJu.css",
+    "src": "resources/css/app.css",
+    "isEntry": true,
+    "names": [
+      "app.css"
+    ]
+  },
+  "resources/js/app.js": {
+    "file": "assets/app-DzAsvDgi.js",
+    "name": "app",
+    "src": "resources/js/app.js",
+    "isEntry": true
+  },
+  "resources/js/plexus.js": {
+    "file": "assets/plexus-VkdsZ06A.js",
+    "name": "plexus",
+    "src": "resources/js/plexus.js",
+    "isEntry": true
+  }
+}
