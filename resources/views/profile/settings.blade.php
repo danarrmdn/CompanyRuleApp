@@ -6,6 +6,14 @@
     </x-slot>
 
     <div class="py-12">
+        @if (is_null(Auth::user()->password_change_at))
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 mb-4">
+            <div class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-lg" role="alert">
+                <p class="font-bold">Warning!</p>
+                <p>You must change your default password before you can access other parts of the application.</p>
+            </div>
+        </div>
+        @endif
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white shadow-sm sm:rounded-lg">
                 <div class="md:grid md:grid-cols-3 md:gap-6">
