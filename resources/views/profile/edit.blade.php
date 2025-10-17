@@ -25,7 +25,7 @@
                                     <img src="{{ asset('storage/' . $user->avatar) }}" alt="Profile Photo" class="h-32 w-32 rounded-full object-cover cursor-pointer hover:opacity-80 transition">
                                 </button>
                             @else
-                                <img src="{{ 'https://ui-avatars.com/api/?name=' . urlencode($user->name) . '&color=7F9CF5&background=EBF4FF' }}" alt="Profile Photo" class="h-32 w-32 rounded-full object-cover">
+                                <img src="{{ asset('images/default-profile-account.png') }}" alt="Profile Photo" class="h-32 w-32 rounded-full object-cover">
                             @endif
                         </div>
                         <div class="md:col-span-2 space-y-4">
