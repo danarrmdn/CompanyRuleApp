@@ -121,11 +121,12 @@ class UserController extends Controller
      */
     public function resetPassword(User $user): RedirectResponse
     {
-        $newPassword = Str::random(10);
+        $newPassword = 'shokubai';
 
         $user->update([
-            'password' => Hash::make($newPassword)
+            'password' => Hash::make($newPassword),
+            'password_change_at' => null,
         ]);
 
-        return redirect()->route('users.index')->with('success', "Password for {$user->name} has been reset. The new password is: {$newPassword}");
+        return redirect()->route('users.index')->with('success', "Password for {$user->name} has been reset to the default password.");
     }}

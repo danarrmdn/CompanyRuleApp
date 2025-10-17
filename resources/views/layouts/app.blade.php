@@ -38,8 +38,7 @@
                          x-transition:leave-start="opacity-100 transform translate-y-0"
                          x-transition:leave-end="opacity-0 transform -translate-y-4"
                          x-init="setTimeout(() => show = false, 3000)"
-                         class="p-4 text-sm text-blue-800 rounded-lg bg-blue-50 shadow-md border border-blue-200"
-                         role="alert">
+                         class="p-4 text-sm text-blue-800 rounded-lg bg-blue-50 shadow-md border border-blue-200"                         role="alert">
                         <span class="font-medium">Success!</span> {{ session('success') }}
                     </div>
                 </div>

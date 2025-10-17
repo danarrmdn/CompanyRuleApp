@@ -18,7 +18,7 @@ class EnsurePasswordIsChanged
     public function handle(Request $request, Closure $next)
     {
         if (Auth::check() && is_null(Auth::user()->password_change_at)) {
-            if (! $request->routeIs('profile.settings') && ! $request->routeIs('password.update')) {
+            if (! $request->routeIs('profile.settings') && ! $request->routeIs('password.update') && ! $request->routeIs('logout')) {
                 return redirect()->route('profile.settings')->with('warning', 'You must change your password before continuing.');
             }
         }

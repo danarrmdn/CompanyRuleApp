@@ -13,11 +13,11 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex sm:items-center">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+                    <x-nav-link :href="is_null(Auth::user()->password_change_at) ? route('profile.settings') : route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('company-rules.index')" :active="request()->routeIs('company-rules.index', 'company-rules.show', 'company-rules.edit')">
+                    <x-nav-link :href="is_null(Auth::user()->password_change_at) ? route('profile.settings') : route('company-rules.index')" :active="request()->routeIs('company-rules.index', 'company-rules.show', 'company-rules.edit')">
                         {{ __('Document List') }}
                     </x-nav-link>
 
@@ -25,7 +25,7 @@
                         @php
                             $pendingCount = ApprovalController::getPendingCount();
                         @endphp
-                        <x-nav-link :href="route('approvals.index')" :active="request()->routeIs('approvals.index')">
+                        <x-nav-link :href="is_null(Auth::user()->password_change_at) ? route('profile.settings') : route('approvals.index')" :active="request()->routeIs('approvals.index')">
                             <span class="relative">
                                 {{ __('Need Actions') }}
                                 @if ($pendingCount > 0)
@@ -37,12 +37,11 @@
                         </x-nav-link>
                     @endif
 
-                    <!-- Manage Dropdown -->
                     @if (Auth::user()->roles >= 2)
                         <div class="hidden sm:flex sm:items-center sm:ms-4">
                             <x-dropdown align="left" width="48">
                                 <x-slot name="trigger">
-                                    <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150">
+                                    <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-800 bg-transparent hover:text-blue-700 focus:outline-none transition ease-in-out duration-150">
                                         <div>Manage</div>
 
                                         <div class="ms-1">
@@ -54,13 +53,11 @@
                                 </x-slot>
 
                                 <x-slot name="content">
-                                    <!-- User Management Link -->
-                                    <x-dropdown-link :href="route('users.index')">
+                                    <x-dropdown-link :href="is_null(Auth::user()->password_change_at) ? route('profile.settings') : route('users.index')">
                                         {{ __('User') }}
                                     </x-dropdown-link>
 
-                                    <!-- Position Management Link -->
-                                    <x-dropdown-link :href="route('positions.index')">
+                                    <x-dropdown-link :href="is_null(Auth::user()->password_change_at) ? route('profile.settings') : route('positions.index')">
                                         {{ __('Position') }}
                                     </x-dropdown-link>
                                 </x-slot>
@@ -166,7 +163,6 @@
 
                             <div class="border-t border-gray-100"></div>
 
-                            <!-- Authentication -->
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <x-dropdown-link :href="route('logout')"
@@ -186,11 +182,11 @@
 
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
+            <x-responsive-nav-link :href="is_null(Auth::user()->password_change_at) ? route('profile.settings') : route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('company-rules.index')" :active="request()->routeIs('company-rules.index', 'company-rules.show', 'company-rules.edit')">
+            <x-responsive-nav-link :href="is_null(Auth::user()->password_change_at) ? route('profile.settings') : route('company-rules.index')" :active="request()->routeIs('company-rules.index', 'company-rules.show', 'company-rules.edit')">
                 {{ __('Document List') }}
             </x-responsive-nav-link>
 
@@ -198,7 +194,7 @@
                 @php
                     $pendingCount = ApprovalController::getPendingCount();
                 @endphp
-                <x-responsive-nav-link :href="route('approvals.index')" :active="request()->routeIs('approvals.index')">
+                <x-responsive-nav-link :href="is_null(Auth::user()->password_change_at) ? route('profile.settings') : route('approvals.index')" :active="request()->routeIs('approvals.index')">
                     <span class="relative">
                         {{ __('Approve Document') }}
                         @if ($pendingCount > 0)

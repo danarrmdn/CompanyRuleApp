@@ -15,13 +15,13 @@
     <body class="font-sans text-gray-900 antialiased login-page">
     <canvas id="plexus-bg" style="position: fixed; top: 0; left: 0; z-index: -1;"></canvas>
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0">
-            <div>
-                <a href="/">
-                    <img src="{{ asset('images/side-name-logo-nobg.png') }}" alt="NSI Logo" class="w-34 h-24">
-                </a>
-            </div>
+            <div class="w-full sm:max-w-md mt-6 px-6 py-8 bg-white shadow-md overflow-hidden sm:rounded-lg">
+                <div class="flex justify-center mb-6">
+                    <a href="/">
+                        <img src="{{ asset('images/side-name-logo-nobg.png') }}" alt="NSI Logo" class="w-auto h-20">
+                    </a>
+                </div>
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
                 {{ $slot }}
             </div>
         </div>

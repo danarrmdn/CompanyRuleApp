@@ -220,7 +220,7 @@ class CompanyRuleController extends Controller
 
         $newRule->status = $nextStatus;
         $newRule->save();
-        $newRule->logActivity('Submitted Revision for Approval');
+        $newRule->logActivity('Submitted for Approval');
 
         // Notify users in the same department about the new document
         $creator = $newRule->creator;
@@ -539,13 +539,17 @@ class CompanyRuleController extends Controller
 
                 if ($validatedData['status'] === 'Pending Approval 1' && $rule->controller_1_id) {
                     $controllerId = $rule->controller_1_id;
-                } elseif ($validatedData['status'] === 'Pending Approval 2' && $rule->controller_2_id) {
+                }
+                elseif ($validatedData['status'] === 'Pending Approval 2' && $rule->controller_2_id) {
                     $controllerId = $rule->controller_2_id;
-                } elseif ($validatedData['status'] === 'Pending Approval 3' && $rule->controller_3_id) {
+                }
+                elseif ($validatedData['status'] === 'Pending Approval 3' && $rule->controller_3_id) {
                     $controllerId = $rule->controller_3_id;
-                } elseif ($validatedData['status'] === 'Pending Approval 4' && $rule->controller_4_id) {
+                }
+                elseif ($validatedData['status'] === 'Pending Approval 4' && $rule->controller_4_id) {
                     $controllerId = $rule->controller_4_id;
-                } elseif ($validatedData['status'] === 'Pending Approval 5' && $rule->controller_5_id) {
+                }
+                elseif ($validatedData['status'] === 'Pending Approval 5' && $rule->controller_5_id) {
                     $controllerId = $rule->controller_5_id;
                 }
 
