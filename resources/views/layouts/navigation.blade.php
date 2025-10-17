@@ -21,6 +21,12 @@
                         {{ __('Document List') }}
                     </x-nav-link>
 
+                    @if(in_array(Auth::user()->department, ['Information Technology', 'Corporate Planning']))
+                        <x-nav-link :href="route('migration.create')" :active="request()->routeIs('migration.create')">
+                            {{ __('Migrasi Data') }}
+                        </x-nav-link>
+                    @endif
+
                     @if (Auth::check() && Auth::user()->grade >= 8)
                         @php
                             $pendingCount = ApprovalController::getPendingCount();
@@ -187,6 +193,12 @@
             <x-responsive-nav-link :href="is_null(Auth::user()->password_change_at) ? route('profile.settings') : route('company-rules.index')" :active="request()->routeIs('company-rules.index', 'company-rules.show', 'company-rules.edit')">
                 {{ __('Document List') }}
             </x-responsive-nav-link>
+
+            @if(in_array(Auth::user()->department, ['Information Technology', 'Corporate Planning']))
+                <x-responsive-nav-link :href="route('migration.create')" :active="request()->routeIs('migration.create')">
+                    {{ __('Migrasi Data') }}
+                </x-responsive-nav-link>
+            @endif
 
             @if (Auth::check() && Auth::user()->grade >= 8)
                 @php

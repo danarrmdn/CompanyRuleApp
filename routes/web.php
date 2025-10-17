@@ -4,6 +4,7 @@ use App\Http\Controllers\ApprovalController;
 use App\Http\Controllers\CompanyRuleController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MigrationController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -64,6 +65,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/approvals/{rule}/approve', [ApprovalController::class, 'approve'])->name('approvals.approve');
     Route::post('/approvals/{rule}/reject', [ApprovalController::class, 'reject'])->name('approvals.reject');
     Route::post('/approvals/send-back/{rule}', [ApprovalController::class, 'sendBack'])->name('approvals.send-back');
+
+    // Data Migration Routes
+    Route::get('/migration/create', [MigrationController::class, 'create'])->name('migration.create');
+    Route::post('/migration', [MigrationController::class, 'store'])->name('migration.store');
 
     Route::get('/notifications', [App\Http\Controllers\NotificationController::class, 'index'])
         ->name('notifications.index');
